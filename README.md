@@ -23,22 +23,6 @@
 
 ---
 
-## 🧩 Архитектура
-
-```mermaid
-flowchart LR
-    A[HTTP POST /api/notify/] --> B[Create Notification (DB)]
-    B --> C[Celery Task send_notification_task]
-    C --> D{Email OK?}
-    D -- Да --> E[Status: sent]
-    D -- Нет --> F{SMS OK?}
-    F -- Да --> E
-    F -- Нет --> G{Telegram OK?}
-    G -- Да --> E
-    G -- Нет --> H[Status: failed]
-    C -.-> I[(NotificationAttempt записи)]
-
-
 🛠 Стек
 
 Python 3.12 · Django 5 · PostgreSQL 16 · Celery 5 · Redis 7 · Docker · Docker Compose · Gunicorn · pytest
